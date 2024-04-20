@@ -16,11 +16,10 @@ class User(db.Model, UserMixin):
 
 
 class Transaction(db.Model):
-    __tablename__ = 'transactions'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    amount = db.Column(db.Float, nullable=False)
-    type = db.Column(db.String(50), nullable=False)
+    __tablename__ = 'bank_transactions'
+    transaction_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    account_id = db.Column(db.Integer, db.ForeignKey('users.id'),
+                           nullable=False)  # Убедитесь, что это правильный внешний ключ
+    amount = db.Column(db.Numeric(10, 2), nullable=False)
+    type = db.Column(db.Enum('deposit', 'withdrawal'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-
-    user = db.relationship('User', backref='transactions')

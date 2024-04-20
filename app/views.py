@@ -98,7 +98,7 @@ def view_history():
         flash('You must be logged in to view this page.')
         return redirect(url_for('main.login'))
 
-    transactions = Transaction.query.filter_by(user_id=current_user.id).order_by(Transaction.timestamp.desc()).all()
+    transactions = Transaction.query.filter_by(account_id=current_user.id).order_by(Transaction.timestamp.desc()).all()
     if not transactions:
         flash('No transactions found.')
     return render_template('view_history.html', transactions=transactions)
