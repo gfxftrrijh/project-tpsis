@@ -41,6 +41,6 @@ def register():
         user = User(username=form.username.data, password_hash=generate_password_hash(form.password.data))
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash('Поздравляем, Вы успешно зарегистрировались!')
         return redirect(url_for('main.login'))
     return render_template('register.html', title='Register', form=form)
