@@ -1,4 +1,6 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_login import LoginManager
 from .extensions import db
 from .models import User
@@ -9,15 +11,14 @@ from config import Config  # Импорт класса конфигурации
 
 # Создаем экземпляр LoginManager
 login_manager = LoginManager()
-
+migrate = Migrate()  # Добавление экземпляра Migrate
 
 def create_app():
     app = Flask(__name__)
-
-    # Применение конфигурации
     app.config.from_object(Config)
 
     db.init_app(app)
+    migrate.init_app(app, db)  # Инициализация Migrate с Flask приложением и экземпляром SQLAlchemy
     login_manager.init_app(app)
 
     @login_manager.user_loader

@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Личный кабинет {{ current_user.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
 </head>
 <body>
-
+    <header>
+        <h1>Личный кабинет {{ current_user.username }}</h1>
+    </header>
+    <section>
+        <h2>Текущий счет: {{ current_user.account_balance }} рублей</h2>
+    </section>
+    <section>
+        <h3>Банковские операции</h3>
+        <ul>
+            <li><a href="{{ url_for('main.make_payment') }}">Сделать платеж</a></li>
+            <li><a href="{{ url_for('main.transfer_money') }}">Перевести другому пользователю</a></li>
+            <li><a href="{{ url_for('main.view_history') }}">Просмотреть историю платежей</a></li>
+            <li><a href="{{ url_for('main.export_pdf') }}">Экспорт платежей в PDF</a></li>
+        </ul>
+    </section>
+    <footer>
+        <a href="{{ url_for('main.logout') }}">Выйти из аккаунта</a>
+    </footer>
 </body>
 </html>

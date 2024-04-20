@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Transaction History</title>
+</head>
+<body>
+    <h1>Transaction History</h1>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.timestamp }} - {{ transaction.type }} - {{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('main.user_dashboard') }}">Return to Dashboard</a>
+</body>
+</html>

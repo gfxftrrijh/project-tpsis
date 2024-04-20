@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, ValidationError
+from wtforms import DecimalField, StringField, PasswordField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, Email, EqualTo
 from .models import User
 
@@ -20,3 +20,16 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+
+
+class PaymentForm(FlaskForm):
+    amount = DecimalField('Amount', validators=[DataRequired()])
+    description = StringField('Описание')  # Необязательное поле
+    submit = SubmitField('Make Payment')
+
+
+class TransferForm(FlaskForm):
+    recipient_username = StringField('Recipient Username', validators=[DataRequired()])
+    amount = DecimalField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Transfer')
+
