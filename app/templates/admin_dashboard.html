@@ -2,9 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
 </head>
 <body>
+    <header>
+        <h1>Система платежей</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">О фирме</a></li>
+                <li><a href="#team">Наши сотрудники</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="admin-controls">
+       <a href="{{ url_for('main.manage_users') }}" class="btn btn-manage">Manage Users</a>
+<a href="{{ url_for('main.view_statistics') }}" class="btn btn-view">View Statistics</a>
+<form action="{{ url_for('main.logout') }}" method="post" style="display: inline;">
+    <button type="submit" class="warn btn btn-danger">Logout</button>
+</form>
 
+    </div>
+   <div class="slider">
+    <figure>
+        <img class="im" src="{{ url_for('static', filename='1.jpg') }}" alt="Slide 1">
+        <img class="im" src="{{ url_for('static', filename='2.jpg') }}" alt="Slide 2">
+        <img class="im" src="{{ url_for('static', filename='3.jpg') }}" alt="Slide 3">
+    </figure>
+</div>
+
+    <section id="about">
+        <h2>О фирме</h2>
+        <p>Наша компания разработала передовую систему оплат, направленную на упрощение финансовых операций и повышение уровня безопасности транзакций. Мы стремимся к инновациям и постоянному улучшению пользовательского опыта.</p>
+    </section>
+    <section id="team">
+        <h2>Наши сотрудники</h2>
+        <div class="team-slider">
+            <figure>
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='worker-1.png') }}" alt="Сотрудник 1">
+                    <h3>Анна Иванова</h3>
+                    <p>Директор по разработке</p>
+                </div>
+                <div class="team-member">
+                     <img src="{{ url_for('static', filename='worker-2.png') }}" alt="Сотрудник 2">
+                    <h3>Игорь Смирнов</h3>
+                    <p>Главный архитектор</p>
+                </div>
+                <div class="team-member">
+                     <img src="{{ url_for('static', filename='worker-3.png') }}" alt="Сотрудник 3">
+                    <h3>Елена Петрова</h3>
+                    <p>Менеджер по продажам</p>
+                </div>
+            </figure>
+        </div>
+    </section>
+    <footer>
+        <p>© 2023 Стасеня Саша. Все права защищены.</p>
+    </footer>
 </body>
 </html>

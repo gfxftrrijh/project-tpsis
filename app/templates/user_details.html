@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_details.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Подключение Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>User Details for {{ user.username }}</h1>
+    <!-- График транзакций -->
+    <h2>Transactions</h2>
+    <canvas id="transactionsChart" width="400" height="400"></canvas>
+    <!-- Список транзакций -->
+    <ul>
+        {% for transaction in transactions %}
+        <li>{{ transaction.timestamp }} - {{ transaction.type }} - {{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('main.export_user_pdf', user_id=user.id) }}" class="btn">Export to PDF</a>
+    <!-- Скрипт для инициализации графика -->
+    <script>
+        var ctx = document.getElementById('transactionsChart').getContext('2d');
+        var transactionsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for transaction in transactions %}'{{ transaction.timestamp.strftime('%Y-%m-%d') }}',{% endfor %}],
+                datasets: [{
+                    label: 'Transaction Amount',
+                    data: [{% for transaction in transactions %}{{ transaction.amount }},{% endfor %}],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

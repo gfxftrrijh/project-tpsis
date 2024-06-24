@@ -23,3 +23,15 @@ class Transaction(db.Model):
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     type = db.Column(db.Enum('deposit', 'withdrawal'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class BankAccount(db.Model):
+    __tablename__ = 'bank_accounts'
+    account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    balance = db.Column(db.Numeric(10, 2), default=1000.00)  # Начальный баланс 1000
+
+    user = db.relationship('User', back_populates='bank_account')
+
+
+User.bank_account = db.relationship('BankAccount', back_populates='user', uselist=False)

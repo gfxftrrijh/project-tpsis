@@ -1,0 +1,131 @@
+body {
+    background-image: url("{{ url_for('static', filename='background.jpg') }}");
+    background-color: #e6ecff;
+    background-size: cover; /* Заполняет весь доступный контент без искажений */
+    background-position: center; /* Центрирует изображение по центру страницы */
+    background-repeat: no-repeat; /* Предотвращает повторение изображения */
+    background-attachment: fixed; /* Фиксирует изображение при прокрутке */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 10%;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.admin-controls {
+    text-align: center;
+    margin: 20px;
+    padding: 0 10%;
+}
+
+.btn {
+    background-color: #d9534f; /* Default red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #c9302c; /* Darker red */
+}
+
+.btn-manage, .btn-view, .btn-settings {
+    background-color: #337ab7; /* Blue */
+}
+
+.btn-manage:hover, .btn-view:hover, .btn-settings:hover {
+    background-color: #286090; /* Darker blue */
+}
+
+.slider, .team-slider {
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.slider figure, .team-slider figure {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 300%;
+    animation: 20s slider infinite;
+}
+
+.slider figure img, .team-slider figure .team-member {
+    width: 33.333%;
+    float: left;
+}
+
+.team-slider figure .team-member {
+    text-align: center;
+    padding: 20px;
+}
+
+@keyframes slider {
+    0% { left: 0; }
+    20% { left: 0; }
+    33% { left: -100%; }
+    53% { left: -100%; }
+    66% { left: -200%; }
+    86% { left: -200%; }
+    100% { left: 0; }
+}
+
+.im {
+    width: 50%;
+}
+
+section {
+    padding: 20px;
+    text-align: center;
+    margin: 0 10%;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    header, .admin-controls, section, footer {
+        padding: 20px;
+    }
+
+    .slider figure img, .team-slider figure .team-member {
+        width: 100%;
+    }
+}

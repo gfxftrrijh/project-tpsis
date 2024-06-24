@@ -9,10 +9,10 @@
     <header>
         <h1>Личный кабинет {{ current_user.username }}</h1>
     </header>
-    <section>
-        <h2>Текущий счет: {{ current_user.account_balance }} рублей</h2>
+    <section class="account-info">
+        <h2>Текущий счет: {{ current_user.bank_account.balance }} рублей</h2>
     </section>
-    <section>
+    <section class="actions">
         <h3>Банковские операции</h3>
         <ul>
             <li><a href="{{ url_for('main.make_payment') }}">Сделать платеж</a></li>
@@ -22,7 +22,7 @@
         </ul>
     </section>
     <footer>
-        <a href="{{ url_for('main.logout') }}">Выйти из аккаунта</a>
+        <a href="{{ url_for('main.logout') }}" class="btn-logout">Выйти из аккаунта</a>
     </footer>
 </body>
 </html>

@@ -2,25 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Transfer Money</title>
+    <title>Сделать перевод средств</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='transfer.css') }}">
 </head>
 <body>
-    <h1>Сделать перевод средств</h1>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.recipient_username.label }}<br>
-            {{ form.recipient_username }}
-        </div>
-        <div>
-            {{ form.amount.label }}<br>
-            {{ form.amount }}
-        </div>
-        <div>
-            {{ form.submit() }}
-        </div>
-    </form>
-    <a href="{{ url_for('main.user_dashboard') }}">Return to Dashboard</a>
+    <header>
+        <h1>Сделать перевод средств</h1>
+    </header>
+    <section class="transfer-form">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.recipient_username.label }}<br>
+                {{ form.recipient_username(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.amount.label }}<br>
+                {{ form.amount(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        <a href="{{ url_for('main.user_dashboard') }}" class="btn btn-secondary">Return to Dashboard</a>
+    </section>
 </body>
 </html>

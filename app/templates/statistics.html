@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика сервиса</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='statistics.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Статистика сервиса</h1>
+    <ul>
+        <li>Total Users: {{ total_users }}</li>
+        <li>Total Transactions: {{ total_transactions }}</li>
+        <li>Total Transaction Volume: {{ total_volume }}</li>
+        <li>Transactions by Type:</li>
+        <ul>
+            {% for type, count in transactions_by_type %}
+            <li>{{ type }}: {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </ul>
+
+    <a href="{{ url_for('main.export_statistics_pdf') }}" class="btn btn-primary">Export to PDF</a>
+
+    <h2>Объем транзакций по типам</h2>
+    <canvas id="transactionsByTypeChart"></canvas>
+
+    <h2>Динамика транзакций по времени</h2>
+    <canvas id="transactionsDynamicsChart"></canvas>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const transactionsByTypeData = {{ transactions_by_type | tojson }};
+        const ctxType = document.getElementById('transactionsByTypeChart').getContext('2d');
+        const transactionsByTypeChart = new Chart(ctxType, {
+            type: 'pie',  // Или 'bar' для столбчатой диаграммы
+            data: {
+                labels: transactionsByTypeData.map(item => item.type), // Используйте item.type
+                datasets: [{
+                    label: 'Transactions by Type',
+                    data: transactionsByTypeData.map(item => item.count), // Используйте item.count
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+
+        const transactionDynamicsData = {{ transaction_dynamics | tojson }};
+        const ctxDynamics = document.getElementById('transactionsDynamicsChart').getContext('2d');
+        const transactionsDynamicsChart = new Chart(ctxDynamics, {
+            type: 'line',
+            data: {
+                labels: transactionDynamicsData.map(item => item.year + '-' + item.month), // Форматирование меток как 'Год-Месяц'
+                datasets: [{
+                    label: 'Total Amount by Month',
+                    data: transactionDynamicsData.map(item => item.total_amount),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -33,3 +33,6 @@ class TransferForm(FlaskForm):
     amount = DecimalField('Amount', validators=[DataRequired()])
     submit = SubmitField('Transfer')
 
+
+class LogoutForm(FlaskForm):
+    pass  # Пока что форма пуста, так как специфических полей нет

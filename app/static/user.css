@@ -1,68 +1,107 @@
-/* styles.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f06, #ff9);
     margin: 0;
     padding: 0;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
-header, section, footer {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 800px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+header {
+    width: 100%;
+    background-color: #0066cc;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 header h1 {
-    color: #0066cc;
+    margin: 0;
 }
 
-ul {
+section {
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.account-info h2 {
+    color: #0066cc;
+    text-align: center;
+}
+
+.actions ul {
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-ul li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+.actions ul li {
+    width: 100%;
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-ul li:last-child {
-    border-bottom: none;
+.actions ul li:hover {
+    background-color: #e0f7fa;
 }
 
-a {
+.actions ul li a {
     color: #0066cc;
     text-decoration: none;
+    font-weight: bold;
 }
 
-a:hover {
+.actions ul li a:hover {
     text-decoration: underline;
 }
 
 footer {
+    width: 100%;
     text-align: center;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="submit"] {
-    display: block;
-    width: 95%;
-    padding: 10px;
-    margin: 10px auto;
-    box-sizing: border-box; /* Makes padding not affect width */
-}
-
-form input[type="submit"] {
+    padding: 20px 0;
     background-color: #0066cc;
     color: white;
-    border: none;
-    cursor: pointer;
+    position: absolute;
+    bottom: 0;
 }
 
-form input[type="submit"]:hover {
-    background-color: #0055a3;
+.btn-logout {
+    background-color: #d9534f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c9302c;
+}
+
+@media (min-width: 600px) {
+    .actions ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .actions ul li {
+        flex: 0 1 calc(48% - 20px);
+        margin: 10px;
+    }
 }
